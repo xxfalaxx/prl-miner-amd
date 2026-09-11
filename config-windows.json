@@ -1,7 +1,7 @@
 {
   "pool": {
-    "url": "stratum+tcp://pool.prl.com:3333",
-    "user": "TU_WALLET_ADDRESS_AQUI",
+    "url": "stratum+tcp://es.pearl.herominers.com:1200",
+    "user": "prl1p3nyjj7jk7al4upezvphg0r3cxms8djud8ffpa29xphxcpv5w5tpsj5ujl6+o1ar4u5q23aa4fnt4ekf3ypxv6ezexm3t27svu0sgpm5hmvjw528rsrjdjph/4070Ti",
     "password": "x"
   },
   "gpu": {
