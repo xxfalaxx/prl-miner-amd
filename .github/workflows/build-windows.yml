@@ -1,0 +1,67 @@
+name: Build Windows Executable
+
+on:
+  push:
+    branches:
+      - windows-x64
+    tags:
+      - 'v*-windows'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-windows.txt
+        pip install PyInstaller
+    
+    - name: Build executable with PyInstaller
+      run: |
+        pyinstaller --onefile --windowed --name "PRL-Miner" --add-data "config-windows.json:." --console main-windows.py
+    
+    - name: Create distribution folder
+      run: |
+        mkdir dist\PRL-Miner-Windows-v1.0.0
+        copy dist\PRL-Miner.exe dist\PRL-Miner-Windows-v1.0.0\
+        copy config-windows.json dist\PRL-Miner-Windows-v1.0.0\
+        copy requirements-windows.txt dist\PRL-Miner-Windows-v1.0.0\
+        copy prl-miner.bat dist\PRL-Miner-Windows-v1.0.0\
+        copy install-dependencies.bat dist\PRL-Miner-Windows-v1.0.0\
+        copy run-gui.bat dist\PRL-Miner-Windows-v1.0.0\
+        copy run-cli.bat dist\PRL-Miner-Windows-v1.0.0\
+        copy run-background.bat dist\PRL-Miner-Windows-v1.0.0\
+        copy README-WINDOWS.md dist\PRL-Miner-Windows-v1.0.0\
+        copy README.md dist\PRL-Miner-Windows-v1.0.0\
+        copy LICENSE dist\PRL-Miner-Windows-v1.0.0\
+    
+    - name: Create ZIP archive
+      run: |
+        cd dist
+        powershell -Command "Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::CreateFromDirectory('PRL-Miner-Windows-v1.0.0', 'prl-miner-windows-v1.0.0.zip')"
+        cd ..
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: prl-miner-windows-v1.0.0
+        path: dist/prl-miner-windows-v1.0.0.zip
+    
+    - name: Create Release (if tagged)
+      if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, 'windows')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/prl-miner-windows-v1.0.0.zip
+        body_path: RELEASE-NOTES-WINDOWS-v1.0.0.md
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
