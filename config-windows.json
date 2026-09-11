@@ -1,0 +1,27 @@
+{
+  "pool": {
+    "url": "stratum+tcp://pool.prl.com:3333",
+    "user": "TU_WALLET_ADDRESS_AQUI",
+    "password": "x"
+  },
+  "gpu": {
+    "device_id": 0,
+    "intensity": 28,
+    "threads": 1024,
+    "core_clock": 1400,
+    "memory_clock": 1100,
+    "power_limit": 250,
+    "enable_hw_monitoring": true
+  },
+  "windows": {
+    "priority": "high",
+    "enable_gui": false,
+    "minimize_to_tray": true,
+    "auto_start": false
+  },
+  "monitoring": {
+    "enabled": true,
+    "interval": 5,
+    "verbose": true
+  }
+}
