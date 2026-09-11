@@ -1,0 +1,9 @@
+rocm-tensorflow==5.7.0
+cryptoaddr==1.0.23
+requests==2.31.0
+click==8.1.7
+pyyaml==6.0
+colorama==0.4.6
+psutil==5.9.6
+pynvml==12.535.108
+setuptools==69.0.2

@@ -1,0 +1,24 @@
+{
+  "pool": {
+    "url": "stratum+tcp://pool.prl.com:3333",
+    "user": "Tu_Wallet_Address_Aqui",
+    "password": "x"
+  },
+  "gpu": {
+    "device_id": 0,
+    "intensity": 28,
+    "threads": 1024,
+    "memory_clock": 0,
+    "core_clock": 0
+  },
+  "monitoring": {
+    "enabled": true,
+    "interval": 5,
+    "verbose": true
+  },
+  "performance": {
+    "work_size": 256,
+    "gpu_threads": 1,
+    "lookup_gap": 2
+  }
+}
